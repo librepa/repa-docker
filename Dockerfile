@@ -33,7 +33,7 @@ RUN apt-get install libssl-dev
 RUN cd "$DEP_DIR/src" && curl -LO https://github.com/Kitware/CMake/releases/download/v3.16.5/cmake-3.16.5.tar.gz && tar -xf cmake-3.16.5.tar.gz && cd cmake-3.16.5 && ./bootstrap --parallel=$NJOBS --prefix="$DEP_DIR" && make -j$NJOBS && make install
 
 ## KD-Part
-RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpart && make -j$NJOBS && make install PREFIX="$DEP_DIR"
+RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpart && make CXXFLAGS="-std=c++14 -O3" -j$NJOBS && make install PREFIX="$DEP_DIR"
 
 ## P4est
 RUN apt-get install -y libblas-dev liblapack-dev
