@@ -47,7 +47,7 @@ RUN apt-get install -y libgmp-dev libmpfr-dev
 RUN cd "$DEP_DIR/src" && curl -LO https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-5.0.2/CGAL-5.0.2.tar.xz && tar -xf CGAL-5.0.2.tar.xz && cd CGAL-5.0.2 && cmake . -DCMAKE_INSTALL_PREFIX="$DEP_DIR" && make -j$NJOBS install
 
 ## Clang-format for style checking
-RUN apt-get install -y clang-format
+RUN apt-get install -y clang-format clang-tidy
 
 # Cleanup
 RUN apt-get clean
