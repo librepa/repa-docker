@@ -42,10 +42,6 @@ RUN cd "$DEP_DIR/src" && git clone --recursive https://github.com/lahnerml/p4est
 ## Boost
 RUN cd "$DEP_DIR/src" && curl -LO https://dl.bintray.com/boostorg/release/1.67.0/source/boost_1_67_0.tar.gz && tar -xf boost_1_67_0.tar.gz && cd boost_1_67_0 && ./bootstrap.sh --prefix="$DEP_DIR" --with-libraries=all && echo "using mpi ;" >> project-config.jam && ./b2 -j$NJOBS install
 
-## CGAL
-RUN apt-get install -y libgmp-dev libmpfr-dev
-RUN cd "$DEP_DIR/src" && curl -LO https://github.com/CGAL/cgal/releases/download/releases%2FCGAL-5.0.2/CGAL-5.0.2.tar.xz && tar -xf CGAL-5.0.2.tar.xz && cd CGAL-5.0.2 && cmake . -DCMAKE_INSTALL_PREFIX="$DEP_DIR" && make -j$NJOBS install
-
 ## Clang-format for style checking
 RUN apt-get install -y clang-format clang-tidy
 
