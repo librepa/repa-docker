@@ -17,6 +17,7 @@ RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selectio
 RUN apt-get install -y apt-utils lsb-release
 RUN apt-get install -y wget curl git
 RUN apt-get install -y build-essential automake autoconf gfortran gdb
+RUN apt-get install -y clang-format clang-tidy
 RUN apt-get install -y sudo
 RUN apt-get install -y openmpi-bin
 
@@ -36,9 +37,6 @@ RUN cd "$DEP_DIR/src" && git clone --recursive https://github.com/lahnerml/p4est
 
 ## Boost
 RUN cd "$DEP_DIR/src" && curl -LO https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz && tar -xf boost_1_73_0.tar.gz && cd boost_1_73_0 && ./bootstrap.sh --prefix="$DEP_DIR" --with-libraries=mpi,serialization,test && echo "using mpi ;" >> project-config.jam && ./b2 -j$NJOBS install
-
-## Clang-format for style checking
-RUN apt-get install -y clang-format clang-tidy
 
 # Cleanup
 RUN apt-get clean
