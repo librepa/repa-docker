@@ -21,16 +21,12 @@ RUN apt-get install -y sudo
 RUN apt-get install -y openmpi-bin
 
 # Install required dependencies
-RUN apt-get install -y libparmetis-dev
+RUN apt-get install -y libparmetis-dev cmake
 
 ARG DEP_DIR=/usr/local
 RUN cd "$DEP_DIR" && mkdir -p src
 
 ARG NJOBS=1
-
-## CMake
-RUN apt-get install libssl-dev
-RUN cd "$DEP_DIR/src" && curl -LO https://github.com/Kitware/CMake/releases/download/v3.16.5/cmake-3.16.5.tar.gz && tar -xf cmake-3.16.5.tar.gz && cd cmake-3.16.5 && ./bootstrap --parallel=$NJOBS --prefix="$DEP_DIR" && make -j$NJOBS && make install
 
 ## KD-Part
 RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpart && make CXXFLAGS="-std=c++14 -O3" -j$NJOBS && make install PREFIX="$DEP_DIR"
