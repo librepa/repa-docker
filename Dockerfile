@@ -35,7 +35,7 @@ RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpa
 RUN cd "$DEP_DIR/src" && git clone --recursive https://github.com/lahnerml/p4est --branch p4est-ESPResSo-integration && cd p4est && ./bootstrap && ./configure --enable-mpi --without-blas --without-lapack --prefix="$DEP_DIR" && make -j$NJOBS install
 
 ## Boost
-RUN cd "$DEP_DIR/src" && curl -LO https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz && tar -xf boost_1_73_0.tar.gz && cd boost_1_73_0 && ./bootstrap.sh --prefix="$DEP_DIR" --with-libraries=all && echo "using mpi ;" >> project-config.jam && ./b2 -j$NJOBS install
+RUN cd "$DEP_DIR/src" && curl -LO https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz && tar -xf boost_1_73_0.tar.gz && cd boost_1_73_0 && ./bootstrap.sh --prefix="$DEP_DIR" --with-libraries=mpi,serialization,test && echo "using mpi ;" >> project-config.jam && ./b2 -j$NJOBS install
 
 ## Clang-format for style checking
 RUN apt-get install -y clang-format clang-tidy
