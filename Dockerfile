@@ -38,6 +38,8 @@ RUN cd "$DEP_DIR/src" && git clone --recursive https://github.com/lahnerml/p4est
 ## Boost
 RUN cd "$DEP_DIR/src" && curl -L https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz | tar -xzf - && cd boost_1_73_0 && ./bootstrap.sh --prefix="$DEP_DIR" --with-libraries=mpi,serialization,test && echo "using mpi ;" >> project-config.jam && ./b2 -j$NJOBS install
 
+ENV LD_LIBRARY_PATH=$DEP_DIR/lib
+
 # Cleanup
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
