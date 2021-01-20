@@ -30,7 +30,7 @@ RUN cd "$DEP_DIR" && mkdir -p src
 ARG NJOBS=1
 
 ## KD-Part
-RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpart && git checkout v1.1.0 && make CXXFLAGS="-std=c++14 -O3" -j$NJOBS && make install PREFIX="$DEP_DIR"
+RUN cd "$DEP_DIR/src" && git clone https://github.com/hirschsn/kdpart && cd kdpart && git checkout v1.1.1 && make CXXFLAGS="-std=c++14 -O3" -j$NJOBS && make install PREFIX="$DEP_DIR"
 
 ## P4est
 RUN cd "$DEP_DIR/src" && git clone --recursive https://github.com/lahnerml/p4est --branch p4est-ESPResSo-integration && cd p4est && ./bootstrap && ./configure --enable-mpi --without-blas --without-lapack --prefix="$DEP_DIR" && make -j$NJOBS install
